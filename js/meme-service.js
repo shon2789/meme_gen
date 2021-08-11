@@ -75,7 +75,6 @@ function getimgIdxById() {
 
 function getImgSrc() {
     const idx = getimgIdxById();
-    console.log(idx);
     return gImages[idx].src;
 }
 
@@ -115,4 +114,16 @@ function decreaseFontSize() {
 
 function setFontColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color;
+}
+
+function deleteLine() {
+    if (gMeme.selectedLineIdx > 0) {
+        gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+        gMeme.selectedLineIdx--;
+    } else if (gMeme.selectedLineIdx === 0) {
+        gMeme.selectedLineIdx = 0;
+        gMeme.lines[0].txt = '';
+    } else {
+        return;
+    }
 }

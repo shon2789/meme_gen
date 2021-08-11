@@ -38,7 +38,6 @@ function renderGallery() {
 function renderCanvas() {
     const img = new Image();
     img.src = getImgSrc();
-    console.log(img.src)
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         onAddLine();
@@ -93,6 +92,12 @@ function onChangeLine() {
 
 function onSetFontColor(color) {
     setFontColor(color);
+    renderCanvas();
+}
+
+function onDeleteLine() {
+    console.log('hi')
+    deleteLine();
     renderCanvas();
 }
 
