@@ -73,14 +73,14 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
     justify-content: center;
     align-content: center;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
 }
 
 .content-container {
     height: 85vh;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
 }
 
 .gallery-img {
@@ -244,7 +244,7 @@ header {
 
 .content-container.edit-mode {
     padding: 0.5rem;
-    height: 40vh;
+    height: 30rem;
 }
 
 /* HELPERS */
