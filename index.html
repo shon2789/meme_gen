@@ -9,7 +9,7 @@
     <title>MemeGen</title>
 </head>
 
-<body>
+<body onload="onInit()">
     <div class="page-container flex column center">
         <header class="flex center ">
             <div class="header-content flex space-between align-center main-layout">
@@ -24,13 +24,55 @@
             </div>
         </header>
 
-        <section class="content-container flex main-layout">
+        <section class="content-container flex main-layout align-center ">
 
-            <canvas class="canvas" width="300" height="300"></canvas>
+            <section class="gallery-container main-layout">
+                <div class="images-container grid main-layout"></div>
+            </section>
+            <!-- <div class="gallery-container grid main-layout"></div> -->
 
+            <section class="edit-container main-layout flex space-between">
+                <div class="canvas-container">
+                    <canvas class="canvas" width="500" height="500"></canvas>
+                </div>
+                <div class="options-container flex column align-center">
+                    <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)"
+                        placeholder="Text Goes Here">
+                    <div class="top-btns flex space-between">
+                        <div class="txt-selector flex center align-center" onclick="onChangeLine()"><img
+                                src="images/arrowup.png" alt=""><img src="images/arrowdown.png" alt=""></div>
+                        <div class="add-btn flex center align-center" onclick="onAddNewLine()"><span
+                                class="add-symbol flex center align-center">+</span></div>
+                        <div class="delete-btn flex center align-center"><img src="images/delete.png" alt=""></div>
+                    </div>
+                    <div class="text-edit-btns grid">
+                        <div onclick="onIncreaseFontSize()" class="rectangle font-up flex center align-center"><span
+                                class="font-up-txt flex center align-center">A+</span>
+                        </div>
+                        <div onclick="onDecreaseFontSize()" class="rectangle font-down flex center align-center"><span
+                                class="font-up-txt flex center align-center">A-</span>
+                        </div>
+                        <div class="rectangle align-left flex center align-center"><img src="images/alignleft.png"
+                                alt=""></div>
+                        <div class="rectangle align-center-btn flex center align-center"><img
+                                src="images/aligncenter.png" alt=""></div>
+                        <div class="rectangle align-right flex center align-center"><img src="images/alignright.png"
+                                alt=""></div>
+                        <div class="font"><select class="font">
+                                <option value="">Font1</option>
+                                <option value="">Font2</option>
+                                <option value="">Font3</option>
+                            </select></div>
+                        <div class="rectangle stroke"></div>
+                        <label for="color">
+                            <div class="rectangle color flex center align-center"><img src="images/colors.png" alt="">
+                        </label>
+                        <input oninput="onSetFontColor(this.value)" class="color-input" type="color" id="color">
+                    </div>
 
+                </div>
+            </section>
         </section>
-
 
     </div>
 
