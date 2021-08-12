@@ -1,4 +1,5 @@
 'use strict';
+const KEY = 'memesDB'
 
 var gImages = [
     { id: 1, src: 'images/1.jpg', keywords: [] },
@@ -28,17 +29,17 @@ var gMeme = {
         {
             txt: '',
             size: 40,
-            align: 'left',
+            align: 'center',
             color: 'black',
             isStroke: true,
             pos: { x: 100, y: 20 },
             isChosen: true,
         },
-
-
     ],
 }
 
+var gSavedMemes = [];
+loadSavedMemes()
 function addNewLine(txt, w, h, color) {
     var linesCount = gMeme.lines.length;
     // if (linesCount === 3) return;
@@ -53,7 +54,7 @@ function addNewLine(txt, w, h, color) {
     var newLine = {
         txt,
         size: 40,
-        align: 'start',
+        align: 'center',
         color: 'black',
         isStroke: true,
         pos: { x: 100, y: posY },
@@ -105,7 +106,6 @@ function changeLine() {
         return;
     }
     gMeme.selectedLineIdx++;
-    console.log(gMeme.selectedLineIdx)
 }
 function increaseFontSize() {
     gMeme.lines[gMeme.selectedLineIdx].size++;
@@ -141,7 +141,7 @@ function getTextHeight() {
 
 function setStroke() {
     (gMeme.lines[gMeme.selectedLineIdx].isStroke) ? gMeme.lines[gMeme.selectedLineIdx].isStroke = false : gMeme.lines[gMeme.selectedLineIdx].isStroke = true;
-    console.log(gMeme.lines[gMeme.selectedLineIdx].isStroke)
+
 }
 
 function changeFont(font) {
@@ -165,4 +165,32 @@ function setChosen() {
 function moveTxt(x, y) {
     gMeme.lines[gMeme.selectedLineIdx].pos.x = x;
     gMeme.lines[gMeme.selectedLineIdx].pos.y = y;
+}
+
+function loadSavedMemes() {
+    const memes = loadFromStorage(KEY);
+    if (memes) {
+        memes.forEach(meme => {
+            gSavedMemes.push(meme);
+        })
+    }
+    _saveToStorage();
+    // return gSavedMemes;
+}
+
+function getSavedMemesToShow() {
+    return gSavedMemes;
+}
+
+
+function addToStorage(meme) {
+    const id = makeId();
+    const memeObj = { id, meme };
+    gSavedMemes.push(memeObj)
+    _saveToStorage()
+}
+
+
+function _saveToStorage() {
+    saveToStorage(KEY, gSavedMemes);
 }

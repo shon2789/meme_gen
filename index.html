@@ -6,10 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>MemeGen</title>
 </head>
 
 <body onload="onInit()">
+    <div class="screen-menu" onclick="onToggleMenu()"></div>
     <div class="page-container flex column center">
         <header class="flex align-center ">
             <div class="header-content flex space-between align-center main-layout">
@@ -18,9 +22,15 @@
                 </div>
                 <ul class="nav main-nav main-layout clean-list flex flex-end">
                     <li><a href="">Gallery</a></li>
-                    <li><a href="">Memes</a></li>
+                    <li><a onclick="onRenderSavedMemes()" href="#">Memes</a></li>
                     <li><a href="">About</a></li>
                 </ul>
+                <ul class="main-nav-mobile clean-list flex column ">
+                    <li><a href="">Gallery</a></li>
+                    <li><a onclick="onRenderSavedMemes()" href="#">Memes</a></li>
+                    <li><a href="">About</a></li>
+                </ul>
+                <i onclick="onToggleMenu()" class="fa fa-bars btn-menu-toggle"></i>
             </div>
         </header>
 
@@ -39,6 +49,7 @@
                         <li>Smile</li>
                         <li>Comic</li>
                     </ul>
+
                 </div>
                 <button>More</button>
             </div>
@@ -99,6 +110,7 @@
                 <a href="#" onclick="uploadImg(this)">
                     <div class="share"><img class="share-img" src="images/share.png" alt=""></div>
                 </a>
+                <button class="save-btn" onclick="onSaveMeme()">Save</button>
                 <a onclick="onDownloadMeme(this)" href="#" download="myPhoto">
                     <div class="download"><img class="download-img" src="images/download.png" alt=""></div>
                 </a>
@@ -110,10 +122,12 @@
     </div>
 
 
+    <script src="js/storage-service.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/meme-service.js"></script>
-    <script src="js/storage-service.js"></script>
     <script src="js/upload-service.js"></script>
+    <script src="js/utils-service.js"></script>
+
 </body>
 
 </html>

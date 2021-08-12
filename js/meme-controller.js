@@ -12,12 +12,11 @@ function onInit() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d');
     resizeCanvas();
-    // addListeners()
     addMouseListeners()
     addTouchListeners();
     renderGallery();
     renderCanvas();
-    // onAddLine();
+
 }
 
 function resizeCanvas() {
@@ -28,7 +27,6 @@ function resizeCanvas() {
 
 function renderGallery() {
     var images = getImagesToShow();
-    console.log(images);
     var strHTMLs = '';
     images.map(img => {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
@@ -53,6 +51,10 @@ function onAddLine() {
         // const size = getTxtSize();
         var lineHeight = line.size * 1.286;
         var textWidth = gCtx.measureText(line.txt).width;
+        if (line.isChosen) {
+            gCtx.strokeStyle = 'black'
+            gCtx.strokeRect(line.pos.x, line.pos.y - 5, textWidth, lineHeight);
+        }
         gCtx.textAlign = 'left';
         gCtx.textBaseline = 'top';
         gCtx.font = `${line.size}px ${line.font}`
@@ -63,14 +65,7 @@ function onAddLine() {
             gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         }
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
-        if (line.isChosen) {
-            gCtx.strokeStyle = 'black'
-            gCtx.strokeRect(line.pos.x, line.pos.y - 5, textWidth, lineHeight);
-        }
-        // gCtx.fillText(line.txt, line.pos.x, line.pos.y)
-
     })
-
 }
 
 function onSetStroke() {
@@ -143,17 +138,6 @@ function onDownloadMeme(elLink) {
 
 }
 
-
-
-// function addListeners() {
-//     addMouseListeners()
-//     addTouchListeners()
-//     window.addEventListener('resize', () => {
-//         resizeCanvas()
-//         renderCanvas()
-//     })
-// }
-
 function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove)
     gCanvas.addEventListener('mousedown', onDown)
@@ -166,7 +150,7 @@ function addTouchListeners() {
     gCanvas.addEventListener('touchend', onEndTouch)
 }
 
-function onDown() {
+function onDown(ev) {
     gIsMouseDown = true;
 }
 
@@ -201,4 +185,27 @@ function onMoveTouch(ev) {
 
 function onEndTouch() {
     gIsMouseDown = false;
+}
+
+function onSelectLine(ev) {
+    return gCtx.isPointInStroke(ev.offsetX, ev.offsetY)
+}
+
+function onSaveMeme() {
+    const meme = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
+    addToStorage(meme);
+}
+
+function onRenderSavedMemes() {
+    var memes = getSavedMemesToShow();
+    var strHTMLs = '';
+    memes.map(meme => {
+        return strHTMLs += `<img class="gallery-img" src="${meme.meme}"/>`
+    })
+
+    document.querySelector('.images-container').innerHTML = strHTMLs;
+}
+
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open');
 }
