@@ -442,9 +442,6 @@ header {
     .main-layout {
         width: 780px;
     }
-    .content-container.edit-mode {
-        /* height: 80vh; */
-    }
     .edit-container {
         /* flex-direction: column; */
         justify-content: center;
