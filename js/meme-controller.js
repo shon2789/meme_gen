@@ -51,12 +51,12 @@ function onAddLine() {
         // const size = getTxtSize();
         var lineHeight = line.size * 1.286;
         var textWidth = gCtx.measureText(line.txt).width;
+        gCtx.textAlign = 'center';
+        gCtx.textBaseline = 'top';
         if (line.isChosen) {
             gCtx.strokeStyle = 'black'
-            gCtx.strokeRect(line.pos.x, line.pos.y - 5, textWidth, lineHeight);
+            gCtx.strokeRect(line.pos.x - (textWidth / 2), line.pos.y - 5, textWidth, lineHeight);
         }
-        gCtx.textAlign = 'left';
-        gCtx.textBaseline = 'top';
         gCtx.font = `${line.size}px ${line.font}`
         gCtx.fillStyle = `${line.color}`
         gCtx.strokeStyle = '#000';
@@ -157,7 +157,7 @@ function onDown(ev) {
 function onMove(ev) {
     var dimensions = getTxtDimensions();
     if (gIsMouseDown) {
-        var x = ev.offsetX - (dimensions.x / 2);
+        var x = ev.offsetX;
         var y = ev.offsetY;
         moveTxt(x, y);
         renderCanvas()
@@ -200,7 +200,7 @@ function onSaveMeme() {
     setTimeout(() => {
         const meme = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
         addToStorage(meme);
-    }, 500)
+    }, 100)
 }
 
 function onRenderSavedMemes() {

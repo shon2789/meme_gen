@@ -32,7 +32,7 @@ var gMeme = {
             align: 'center',
             color: 'black',
             isStroke: true,
-            pos: { x: 100, y: 20 },
+            pos: { x: 200, y: 20 },
             isChosen: true,
         },
     ],
@@ -43,7 +43,7 @@ loadSavedMemes()
 function addNewLine(txt, w, h, color) {
     var linesCount = gMeme.lines.length;
     if (linesCount === 1) {
-        var posX = 100;
+        var posX = 200;
         var posY = h - 55;
 
     } else if (linesCount >= 2) {
@@ -56,7 +56,7 @@ function addNewLine(txt, w, h, color) {
         align: 'center',
         color: 'black',
         isStroke: true,
-        pos: { x: 100, y: posY },
+        pos: { x: 200, y: posY },
     }
     gMeme.lines.push(newLine)
     gMeme.selectedLineIdx = linesCount;
