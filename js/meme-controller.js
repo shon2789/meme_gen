@@ -48,12 +48,24 @@ function onAddLine() {
     const lines = getLinesToShow();
     lines.forEach(line => {
         // const size = getTxtSize();
-        gCtx.font = `${line.size}px ${gCurrFont}`
+        gCtx.font = `${line.size}px ${line.font}`
         gCtx.fillStyle = `${line.color}`
         gCtx.strokeStyle = '#000';
+        if (line.isStroke) {
+            gCtx.lineWidth = 2;
+            gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
+        }
+        // gCtx.textAlign = 'center'
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
+        // gCtx.fillText(line.txt, line.pos.x, line.pos.y)
+
     })
 
+}
+
+function onSetStroke() {
+    setStroke();
+    renderCanvas();
 }
 
 function onSetLineTxt(txt) {
@@ -64,8 +76,8 @@ function onSetLineTxt(txt) {
 function onSelectImg(id) {
     setSelectImg(id);
     renderCanvas();
-    document.querySelector('.gallery-container').hidden = true;
-    document.querySelector('.content-container').classList.toggle('edit-mode');
+    document.querySelector('.gallery-container-main').classList.toggle('hidden');
+    document.querySelector('.edit-container').classList.toggle('hidden');
 }
 
 function onIncreaseFontSize() {
@@ -87,6 +99,7 @@ function onAddNewLine() {
 
 function onChangeLine() {
     changeLine();
+    document.querySelector('.txt-input').value = getTxtToShow();
     renderCanvas();
 }
 
@@ -98,8 +111,22 @@ function onSetFontColor(color) {
 function onDeleteLine() {
     console.log('hi')
     deleteLine();
+    document.querySelector('.txt-input').value = getTxtToShow();
     renderCanvas();
 }
+
+function onChangeFont(font) {
+    changeFont(font);
+    gCurrFont = font;
+    renderCanvas();
+}
+
+function onDownloadMeme(elLink) {
+    const data = gCanvas.toDataURL();
+    elLink.href = data;
+
+}
+
 
 // function addListeners() {
 //     addMouseListeners()

@@ -30,6 +30,7 @@ var gMeme = {
             size: 40,
             align: 'left',
             color: 'black',
+            isStroke: true,
             pos: { x: 100, y: 40 }
         },
 
@@ -51,8 +52,9 @@ function addNewLine(txt, w, h, color) {
     var newLine = {
         txt,
         size: 40,
-        align: 'left',
+        align: 'start',
         color: 'black',
+        isStroke: true,
         pos: { x: 100, y: posY },
     }
     gMeme.lines.push(newLine)
@@ -126,4 +128,21 @@ function deleteLine() {
     } else {
         return;
     }
+}
+
+function getTextWidth() {
+    return gCtx.measureText(gMeme.lines[selectedLineIdx].txt).width;
+}
+
+function getTextHeight() {
+    return gMeme.lines[gMeme.selectedLineIdx].txt * 1.5;
+}
+
+function setStroke() {
+    (gMeme.lines[gMeme.selectedLineIdx].isStroke) ? gMeme.lines[gMeme.selectedLineIdx].isStroke = false : gMeme.lines[gMeme.selectedLineIdx].isStroke = true;
+    console.log(gMeme.lines[gMeme.selectedLineIdx].isStroke)
+}
+
+function changeFont(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font;
 }
