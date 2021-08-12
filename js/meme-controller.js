@@ -204,8 +204,10 @@ function onRenderSavedMemes() {
     })
 
     document.querySelector('.images-container').innerHTML = strHTMLs;
-    document.querySelector('.gallery-container-main').classList.toggle('hidden');
-    document.querySelector('.edit-container').classList.toggle('hidden');
+    if (!document.querySelector('.edit-container').classList.contains('hidden')) {
+        document.querySelector('.edit-container').classList.toggle('hidden');
+        document.querySelector('.gallery-container-main').classList.toggle('hidden');
+    }
 
 }
 

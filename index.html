@@ -69,27 +69,27 @@
             <div class="options-container flex column align-center">
                 <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)" placeholder="Text Goes Here">
                 <div class="top-btns flex space-between">
-                    <div class="flex center align-center" onclick="onChangeLine()"><img class="top-btn-img"
+                    <div class="flex center align-center hover" onclick="onChangeLine()"><img class="top-btn-img"
                             src="images/changelines.png" alt=""></div>
-                    <div class=" flex center align-center" onclick="onAddNewLine()"><img class="top-btn-img"
+                    <div class=" flex center align-center hover" onclick="onAddNewLine()"><img class="top-btn-img"
                             src="images/addline.png" alt=""></div>
-                    <div class=" flex center align-center" onclick="onDeleteLine()">
+                    <div class=" flex center align-center hover" onclick="onDeleteLine()">
                         <img class="top-btn-img" src="images/deleteline.png" alt="">
                     </div>
                 </div>
                 <div class="text-edit-btns grid">
-                    <div onclick="onIncreaseFontSize()" class="flex center align-center"><img class="top-btn-img"
+                    <div onclick="onIncreaseFontSize()" class="flex center align-center hover"><img class="top-btn-img"
                             src="images/fontsizeup.png" alt="">
                     </div>
-                    <div onclick="onDecreaseFontSize()" class="flex center align-center"><img class="top-btn-img"
+                    <div onclick="onDecreaseFontSize()" class="flex center align-center hover"><img class="top-btn-img"
                             src="images/fontsizedown.png" alt="">
                     </div>
-                    <div class="flex center align-center"><img class="top-btn-img" src="images/textalignleft.png"
+                    <div class="flex center align-center hover"><img class="top-btn-img" src="images/textalignleft.png"
                             alt="">
                     </div>
-                    <div class="flex center align-center"><img class="top-btn-img" src="images/textaligncenter.png"
-                            alt=""></div>
-                    <div class="flex center align-center"><img class="top-btn-img" src="images/textalignright.png"
+                    <div class="flex center align-center hover"><img class="top-btn-img"
+                            src="images/textaligncenter.png" alt=""></div>
+                    <div class="flex center align-center hover"><img class="top-btn-img" src="images/textalignright.png"
                             alt="">
                     </div>
                     <div class="font"><select onchange="onChangeFont(this.value)" class="font">
@@ -97,22 +97,22 @@
                             <option value="arial">Arial</option>
                             <option value="Lato-regular">Lato</option>
                         </select></div>
-                    <div class="flex center align-center" onclick="onSetStroke()"><img class="top-btn-img"
+                    <div class="flex center align-center hover" onclick="onSetStroke()"><img class="top-btn-img"
                             src="images/textstroke.png" alt=""></div>
                     <label for="color">
-                        <div class="flex center align-center"><img class="top-btn-img" src="images/textcolor.png"
+                        <div class="flex center align-center hover"><img class="top-btn-img" src="images/textcolor.png"
                                 alt="">
                     </label>
-                    <input oninput="onSetFontColor(this.value)" class="color-input" type="color" id="color">
+                    <input oninput="onSetFontColor(this.value)" class="color-input hover" type="color" id="color">
                 </div>
             </div>
             <div class="share-download flex space-between">
                 <a href="#" onclick="uploadImg(this)">
-                    <div class="share"><img class="share-img" src="images/share.png" alt=""></div>
+                    <div class="share hover"><img class="share-img" src="images/share.png" alt=""></div>
                 </a>
-                <button class="save-btn" onclick="onSaveMeme()">Save</button>
+                <button class="save-btn hover" onclick="onSaveMeme()">Save</button>
                 <a onclick="onDownloadMeme(this)" href="#" download="myPhoto">
-                    <div class="download"><img class="download-img" src="images/download.png" alt=""></div>
+                    <div class="download hover"><img class="download-img" src="images/download.png" alt=""></div>
                 </a>
             </div>
             <div class="share-container"></div>
