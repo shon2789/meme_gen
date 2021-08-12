@@ -80,7 +80,7 @@ header {
 }
 
 .main-nav-mobile {
-    display: none;
+    opacity: 0;
 }
 
 /* GALLERY */
@@ -532,7 +532,7 @@ header {
         display: none;
     }
     .main-nav-mobile {
-        /* display: block; */
+        opacity: 1;
         position: fixed;
         top: 0;
         right: 0;
