@@ -189,6 +189,11 @@ function addToStorage(meme) {
 }
 
 function filterMemes(word) {
+    word = word.charAt(0).toUpperCase() + word.slice(1);
+    if (word !== 'All' && word !== 'all' && word !== 'Men' && word !== 'men' && word !== 'Funny' && word !== 'funny' && word !== 'Animal' && word !== 'animal' && word !== 'Smile' && word !== 'smile' && word !== 'Comic' && word !== 'comic') {
+        word = 'All'
+    }
+
     var filteredMemes = [];
     gImages.forEach(img => {
         if (img.keywords.includes(word)) {

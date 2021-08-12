@@ -25,7 +25,7 @@ function resizeCanvas() {
     gCanvas.height = 400;
 }
 
-function renderGallery(filteredImages) {
+function renderGallery() {
     var images = getImagesToShow();
     var strHTMLs = '';
     images.map(img => {
@@ -192,8 +192,15 @@ function onSelectLine(ev) {
 }
 
 function onSaveMeme() {
-    const meme = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
-    addToStorage(meme);
+    var lines = getLinesToShow();
+    lines.forEach(line => {
+        line.isChosen = false;
+    });
+    renderCanvas();
+    setTimeout(() => {
+        const meme = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
+        addToStorage(meme);
+    }, 500)
 }
 
 function onRenderSavedMemes() {
@@ -223,5 +230,15 @@ function onFilterMemes(elItem) {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
 
+    document.querySelector('.images-container').innerHTML = strHTMLs;
+}
+
+function onFilterMemesInput(word) {
+    console.log(word);
+    var filteredImgs = filterMemes(word)
+    var strHTMLs = '';
+    filteredImgs.map(img => {
+        return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
+    })
     document.querySelector('.images-container').innerHTML = strHTMLs;
 }
