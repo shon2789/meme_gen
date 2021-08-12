@@ -55,7 +55,7 @@ function onAddLine() {
             gCtx.lineWidth = 2;
             gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         }
-        // gCtx.textAlign = 'center'
+
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
         // gCtx.fillText(line.txt, line.pos.x, line.pos.y)
 
