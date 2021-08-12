@@ -83,6 +83,10 @@ header {
     overflow-y: auto; */
 }
 
+.edit-container {
+    margin-top: 5rem;
+}
+
 .gallery-img {
     width: 200px;
     height: 200px;
@@ -108,6 +112,7 @@ header {
 }
 
 .txt-input {
+    margin-top: 1rem;
     width: 80%;
     font-size: 1.5rem;
     text-align: center;
@@ -118,10 +123,14 @@ header {
 
 .top-btns {
     margin-top: 0.8rem;
-    width: 40%;
+    width: 50%;
 }
 
-.txt-selector {
+.top-btn-img {
+    width: 50px;
+}
+
+/* .txt-selector {
     width: 57px;
     height: 53px;
     box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
@@ -137,25 +146,25 @@ header {
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
-}
+} */
 
-.add-symbol {
+/* .add-symbol {
     width: 27px;
     height: 27px;
     text-shadow: 1px 3px 0 rgba(1, 93, 51, 0.61);
     color: #ebeef3;
     font-family: Lato-bold;
     font-size: 51px;
-}
+} */
 
-.delete-btn {
+/* .delete-btn {
     width: 58px;
     height: 53px;
     box-shadow: 1px 5px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     background-color: #ebeef3;
     background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
-}
+} */
 
 .rectangle {
     width: 55px;
@@ -427,9 +436,8 @@ header {
         background-color: hsla(217, 25%, 94%, 0.126);
         border-radius: 1.875rem;
     }
-    .rectangle {
-        width: 40px;
-        height: 40px;
+    .top-btn-img {
+        width: 45px;
     }
     .nav-filter-container {
         width: 21rem;
@@ -441,18 +449,30 @@ header {
 
 @media (max-width: 940px) {
     .main-layout {
-        width: 750px;
+        width: 780px;
     }
     .content-container.edit-mode {
-        height: 80vh;
+        /* height: 80vh; */
     }
     .edit-container {
-        flex-direction: column;
+        /* flex-direction: column; */
         justify-content: center;
         align-items: center;
     }
     .options-container {
-        width: 400px;
+        width: 375px;
+        height: 375px;
+    }
+    .text-edit-btns {
+        padding: 0.5rem;
+        width: 70%;
+    }
+    .top-btn-img {
+        width: 35px;
+    }
+    .canvas {
+        width: 375px;
+        height: 375px;
     }
     .nav-filter-container {
         width: 18rem;
@@ -465,6 +485,18 @@ header {
         width: 175px;
         height: 175px;
     }
+    .txt-input {
+        width: 70%;
+    }
+    .share-download {
+        width: 70%;
+    }
+    .download-img {
+        width: 120px;
+    }
+    .share-img {
+        width: 120px;
+    }
 }
 
 @media (max-width: 780px) {
@@ -475,11 +507,13 @@ header {
         /* height: 80vh; */
     }
     .edit-container {
+        margin-top: 2rem;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
     .options-container {
+        margin-top: 1.5rem;
         width: 400px;
     }
     .nav-filter-container {
@@ -500,11 +534,17 @@ header {
     header {
         border-radius: 0;
     }
+    body {
+        padding: 0;
+    }
 }
 
 @media (max-width: 620px) {
     body {
         padding: 0;
+    }
+    .logo-img {
+        width: 90px;
     }
     .main-layout {
         width: 370px;
@@ -518,5 +558,36 @@ header {
     }
     .gallery-nav input {
         width: 19rem;
+    }
+    .edit-container {
+        margin-top: 1rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .options-container {
+        margin-top: 1rem;
+        width: 350px;
+    }
+    .canvas {
+        width: 350px;
+        height: 300px;
+    }
+    .text-edit-btns {
+        padding: 0.6rem;
+        width: 80%;
+    }
+    .share-download {
+        width: 60%;
+    }
+    .download-img {
+        width: 100px;
+    }
+    .share-img {
+        width: 100px;
+    }
+    .txt-input {
+        font-size: 1rem;
+        height: 2rem;
     }
 }

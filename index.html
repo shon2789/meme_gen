@@ -14,7 +14,7 @@
         <header class="flex center ">
             <div class="header-content flex space-between align-center main-layout">
                 <div class="logo">
-                    <img class="logo-img" src="images/logo.png" alt="">
+                    <a href=""><img class="logo-img" src="images/logo.png" alt=""></a>
                 </div>
                 <ul class="nav main-nav clean-list flex space-between">
                     <li><a href="">Gallery</a></li>
@@ -58,36 +58,39 @@
             <div class="options-container flex column align-center">
                 <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)" placeholder="Text Goes Here">
                 <div class="top-btns flex space-between">
-                    <div class="txt-selector flex center align-center" onclick="onChangeLine()"><img
-                            src="images/arrowup.png" alt=""><img src="images/arrowdown.png" alt=""></div>
-                    <div class="add-btn flex center align-center" onclick="onAddNewLine()"><span
-                            class="add-symbol flex center align-center">+</span></div>
-                    <div class="delete-btn flex center align-center" onclick="onDeleteLine()">
-                        <img src="images/delete.png" alt="">
+                    <div class="flex center align-center" onclick="onChangeLine()"><img class="top-btn-img"
+                            src="images/changelines.png" alt=""></div>
+                    <div class=" flex center align-center" onclick="onAddNewLine()"><img class="top-btn-img"
+                            src="images/addline.png" alt=""></div>
+                    <div class=" flex center align-center" onclick="onDeleteLine()">
+                        <img class="top-btn-img" src="images/deleteline.png" alt="">
                     </div>
                 </div>
                 <div class="text-edit-btns grid">
-                    <div onclick="onIncreaseFontSize()" class="rectangle font-up flex center align-center"><span
-                            class="font-up-txt flex center align-center">A+</span>
+                    <div onclick="onIncreaseFontSize()" class="flex center align-center"><img class="top-btn-img"
+                            src="images/fontsizeup.png" alt="">
                     </div>
-                    <div onclick="onDecreaseFontSize()" class="rectangle font-down flex center align-center"><span
-                            class="font-up-txt flex center align-center">A-</span>
+                    <div onclick="onDecreaseFontSize()" class="flex center align-center"><img class="top-btn-img"
+                            src="images/fontsizedown.png" alt="">
                     </div>
-                    <div class="rectangle align-left flex center align-center"><img src="images/alignleft.png" alt="">
+                    <div class="flex center align-center"><img class="top-btn-img" src="images/textalignleft.png"
+                            alt="">
                     </div>
-                    <div class="rectangle align-center-btn flex center align-center"><img src="images/aligncenter.png"
+                    <div class="flex center align-center"><img class="top-btn-img" src="images/textaligncenter.png"
                             alt=""></div>
-                    <div class="rectangle align-right flex center align-center"><img src="images/alignright.png" alt="">
+                    <div class="flex center align-center"><img class="top-btn-img" src="images/textalignright.png"
+                            alt="">
                     </div>
                     <div class="font"><select onchange="onChangeFont(this.value)" class="font">
                             <option value="impact">Impact</option>
                             <option value="arial">Arial</option>
                             <option value="Lato-regular">Lato</option>
                         </select></div>
-                    <div class="rectangle stroke flex center align-center" onclick="onSetStroke()"><span
-                            class="stroke-txt flex align-center">S</span></div>
+                    <div class="flex center align-center" onclick="onSetStroke()"><img class="top-btn-img"
+                            src="images/textstroke.png" alt=""></div>
                     <label for="color">
-                        <div class="rectangle color flex center align-center"><img src="images/colors.png" alt="">
+                        <div class="flex center align-center"><img class="top-btn-img" src="images/textcolor.png"
+                                alt="">
                     </label>
                     <input oninput="onSetFontColor(this.value)" class="color-input" type="color" id="color">
                 </div>
