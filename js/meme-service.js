@@ -31,7 +31,8 @@ var gMeme = {
             align: 'left',
             color: 'black',
             isStroke: true,
-            pos: { x: 100, y: 40 }
+            pos: { x: 100, y: 20 },
+            isChosen: true,
         },
 
 
@@ -40,12 +41,12 @@ var gMeme = {
 
 function addNewLine(txt, w, h, color) {
     var linesCount = gMeme.lines.length;
-    if (linesCount === 3) return;
+    // if (linesCount === 3) return;
     if (linesCount === 1) {
         var posX = 100;
-        var posY = h - 20;
+        var posY = h - 55;
 
-    } else if (linesCount === 2) {
+    } else if (linesCount >= 2) {
         var posY = 200;
     }
 
@@ -145,4 +146,23 @@ function setStroke() {
 
 function changeFont(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
+}
+
+function getTxtDimensions() {
+    var txt = gMeme.lines[gMeme.selectedLineIdx].txt;
+    var lineHeight = txt * 1.286;
+    var textWidth = gCtx.measureText(txt).width;
+    return { x: textWidth, y: lineHeight }
+}
+
+function setChosen() {
+    gMeme.lines.forEach(line => {
+        line.isChosen = false;
+    })
+    gMeme.lines[gMeme.selectedLineIdx].isChosen = true;
+}
+
+function moveTxt(x, y) {
+    gMeme.lines[gMeme.selectedLineIdx].pos.x = x;
+    gMeme.lines[gMeme.selectedLineIdx].pos.y = y;
 }

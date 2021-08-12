@@ -1,10 +1,11 @@
 'use strict';
 
-var gCanvas;
-var gCtx;
-var gCurrFont = 'Impact';
-var gStartPos;
-var gIsMoving = false;
+let gCanvas;
+let gCtx;
+let gCurrFont = 'Impact';
+let gStartPos;
+let gIsMoving = false;
+let gIsMouseDown = false;
 
 
 function onInit() {
@@ -12,6 +13,8 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
     resizeCanvas();
     // addListeners()
+    addMouseListeners()
+    addTouchListeners();
     renderGallery();
     renderCanvas();
     // onAddLine();
@@ -48,6 +51,10 @@ function onAddLine() {
     const lines = getLinesToShow();
     lines.forEach(line => {
         // const size = getTxtSize();
+        var lineHeight = line.size * 1.286;
+        var textWidth = gCtx.measureText(line.txt).width;
+        gCtx.textAlign = 'left';
+        gCtx.textBaseline = 'top';
         gCtx.font = `${line.size}px ${line.font}`
         gCtx.fillStyle = `${line.color}`
         gCtx.strokeStyle = '#000';
@@ -55,8 +62,11 @@ function onAddLine() {
             gCtx.lineWidth = 2;
             gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         }
-
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
+        if (line.isChosen) {
+            gCtx.strokeStyle = 'black'
+            gCtx.strokeRect(line.pos.x, line.pos.y - 5, textWidth, lineHeight);
+        }
         // gCtx.fillText(line.txt, line.pos.x, line.pos.y)
 
     })
@@ -91,14 +101,19 @@ function onDecreaseFontSize() {
 }
 
 function onAddNewLine() {
+    // if (!txt) return;
     var txt = document.querySelector('.txt-input').value = '';
     const color = document.querySelector('.color-input').value;
     addNewLine(txt, gCanvas.width, gCanvas.height, color);
+    setChosen();
     renderCanvas();
 }
 
 function onChangeLine() {
+    // var dimensions = getTxtDimensions();
+
     changeLine();
+    setChosen();
     document.querySelector('.txt-input').value = getTxtToShow();
     renderCanvas();
 }
@@ -112,6 +127,7 @@ function onDeleteLine() {
     console.log('hi')
     deleteLine();
     document.querySelector('.txt-input').value = getTxtToShow();
+    setChosen();
     renderCanvas();
 }
 
@@ -128,6 +144,7 @@ function onDownloadMeme(elLink) {
 }
 
 
+
 // function addListeners() {
 //     addMouseListeners()
 //     addTouchListeners()
@@ -137,58 +154,51 @@ function onDownloadMeme(elLink) {
 //     })
 // }
 
-// function addMouseListeners() {
-//     gCanvas.addEventListener('mousemove', onMove)
-//     gCanvas.addEventListener('mousedown', onDown)
-//     gCanvas.addEventListener('mouseup', onUp)
-// }
+function addMouseListeners() {
+    gCanvas.addEventListener('mousemove', onMove)
+    gCanvas.addEventListener('mousedown', onDown)
+    gCanvas.addEventListener('mouseup', onUp)
+}
 
-// function addTouchListeners() {
-//     gCanvas.addEventListener('touchmove', onMove)
-//     gCanvas.addEventListener('touchstart', onDown)
-//     gCanvas.addEventListener('touchend', onUp)
-// }
+function addTouchListeners() {
+    gCanvas.addEventListener('touchmove', onMoveTouch)
+    gCanvas.addEventListener('touchstart', onStartTouch)
+    gCanvas.addEventListener('touchend', onEndTouch)
+}
 
-// function onDown(ev) {
-//     const pos = getEvPos(ev)
-//     if (!isCircleClicked(pos)) return
-//     setCircleDrag(true)
-//     gStartPos = pos
-//     document.body.style.cursor = 'grabbing'
+function onDown() {
+    gIsMouseDown = true;
+}
 
-// }
+function onMove(ev) {
+    var dimensions = getTxtDimensions();
+    if (gIsMouseDown) {
+        var x = ev.offsetX - (dimensions.x / 2);
+        var y = ev.offsetY;
+        moveTxt(x, y);
+        renderCanvas()
+    }
+}
 
-// function onMove(ev) {
-//     const circle = getCircle();
-//     if (circle.isDrag) {
-//         const pos = getEvPos(ev)
-//         const dx = pos.x - gStartPos.x
-//         const dy = pos.y - gStartPos.y
-//         moveCircle(dx, dy)
-//         gStartPos = pos
-//         renderCanvas()
-//     }
-// }
+function onUp() {
+    gIsMouseDown = false;
+}
 
-// function onUp() {
-//     setCircleDrag(false)
-//     document.body.style.cursor = 'grab'
-// }
+function onStartTouch(ev) {
+    ev.preventDefault();
+    gIsMouseDown = true;
+}
 
+function onMoveTouch(ev) {
+    if (gIsMouseDown) {
+        const { x, y, width, height } = ev.target.getBoundingClientRect();
+        const offsetX = (ev.touches[0].clientX - x) / width * ev.target.offsetWidth;
+        const offsetY = (ev.touches[0].clientY - y) / height * ev.target.offsetHeight;
+        moveTxt(offsetX, offsetY);
+        renderCanvas();
+    }
+}
 
-
-// function getEvPos(ev) {
-//     var pos = {
-//         x: ev.offsetX,
-//         y: ev.offsetY
-//     }
-//     if (gTouchEvs.includes(ev.type)) {
-//         ev.preventDefault()
-//         ev = ev.changedTouches[0]
-//         pos = {
-//             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-//             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-//         }
-//     }
-//     return pos
-// }
+function onEndTouch() {
+    gIsMouseDown = false;
+}
