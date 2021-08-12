@@ -25,7 +25,7 @@ function resizeCanvas() {
     gCanvas.height = 400;
 }
 
-function renderGallery() {
+function renderGallery(filteredImages) {
     var images = getImagesToShow();
     var strHTMLs = '';
     images.map(img => {
@@ -204,8 +204,22 @@ function onRenderSavedMemes() {
     })
 
     document.querySelector('.images-container').innerHTML = strHTMLs;
+    document.querySelector('.gallery-container-main').classList.toggle('hidden');
+    document.querySelector('.edit-container').classList.toggle('hidden');
+
 }
 
 function onToggleMenu() {
     document.body.classList.toggle('menu-open');
+}
+
+function onFilterMemes(elItem) {
+    var elWord = elItem.innerText;
+    var filteredImgs = filterMemes(elWord);
+    var strHTMLs = '';
+    filteredImgs.map(img => {
+        return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
+    })
+
+    document.querySelector('.images-container').innerHTML = strHTMLs;
 }

@@ -2,24 +2,24 @@
 const KEY = 'memesDB'
 
 var gImages = [
-    { id: 1, src: 'images/1.jpg', keywords: [] },
-    { id: 2, src: 'images/2.jpg', keywords: [] },
-    { id: 3, src: 'images/3.jpg', keywords: [] },
-    { id: 4, src: 'images/4.jpg', keywords: [] },
-    { id: 5, src: 'images/5.jpg', keywords: [] },
-    { id: 6, src: 'images/6.jpg', keywords: [] },
-    { id: 7, src: 'images/7.jpg', keywords: [] },
-    { id: 8, src: 'images/8.jpg', keywords: [] },
-    { id: 9, src: 'images/9.jpg', keywords: [] },
-    { id: 10, src: 'images/10.jpg', keywords: [] },
-    { id: 11, src: 'images/11.jpg', keywords: [] },
-    { id: 12, src: 'images/12.jpg', keywords: [] },
-    { id: 13, src: 'images/13.jpg', keywords: [] },
-    { id: 14, src: 'images/14.jpg', keywords: [] },
-    { id: 15, src: 'images/15.jpg', keywords: [] },
-    { id: 16, src: 'images/16.jpg', keywords: [] },
-    { id: 17, src: 'images/17.jpg', keywords: [] },
-    { id: 18, src: 'images/18.jpg', keywords: [] }
+    { id: 1, src: 'images/1.jpg', keywords: ['All', 'Funny', 'Men'] },
+    { id: 2, src: 'images/2.jpg', keywords: ['All', 'Animal'] },
+    { id: 3, src: 'images/3.jpg', keywords: ['All', 'Animal'] },
+    { id: 4, src: 'images/4.jpg', keywords: ['All', 'Animal'] },
+    { id: 5, src: 'images/5.jpg', keywords: ['All', 'Funny'] },
+    { id: 6, src: 'images/6.jpg', keywords: ['All', 'Men', 'Smile'] },
+    { id: 7, src: 'images/7.jpg', keywords: ['All', 'Funny', 'Smile'] },
+    { id: 8, src: 'images/8.jpg', keywords: ['All', 'Men', 'Smile'] },
+    { id: 9, src: 'images/9.jpg', keywords: ['All', 'Funny', 'Comic'] },
+    { id: 10, src: 'images/10.jpg', keywords: ['All', 'Men', 'Funny', 'Smile'] },
+    { id: 11, src: 'images/11.jpg', keywords: ['All', 'Men', 'Funny'] },
+    { id: 12, src: 'images/12.jpg', keywords: ['All', 'Men'] },
+    { id: 13, src: 'images/13.jpg', keywords: ['All', 'Men', 'Smile'] },
+    { id: 14, src: 'images/14.jpg', keywords: ['All', 'Men'] },
+    { id: 15, src: 'images/15.jpg', keywords: ['All', 'Men', 'Smile'] },
+    { id: 16, src: 'images/16.jpg', keywords: ['All', 'Men', 'Funny'] },
+    { id: 17, src: 'images/17.jpg', keywords: ['All', 'Men'] },
+    { id: 18, src: 'images/18.jpg', keywords: ['All', 'Comic'] }
 ];
 
 var gMeme = {
@@ -42,7 +42,6 @@ var gSavedMemes = [];
 loadSavedMemes()
 function addNewLine(txt, w, h, color) {
     var linesCount = gMeme.lines.length;
-    // if (linesCount === 3) return;
     if (linesCount === 1) {
         var posX = 100;
         var posY = h - 55;
@@ -175,7 +174,6 @@ function loadSavedMemes() {
         })
     }
     _saveToStorage();
-    // return gSavedMemes;
 }
 
 function getSavedMemesToShow() {
@@ -188,6 +186,16 @@ function addToStorage(meme) {
     const memeObj = { id, meme };
     gSavedMemes.push(memeObj)
     _saveToStorage()
+}
+
+function filterMemes(word) {
+    var filteredMemes = [];
+    gImages.forEach(img => {
+        if (img.keywords.includes(word)) {
+            filteredMemes.push(img);
+        }
+    })
+    return filteredMemes;
 }
 
 
