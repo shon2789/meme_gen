@@ -367,6 +367,19 @@ header {
     display: none;
 }
 
+.saved-meme-container {
+    position: relative;
+}
+
+.delete-icon {
+    position: absolute;
+    color: red;
+    font-size: 1.3rem;
+    right: 8px;
+    top: 3px;
+    cursor: pointer;
+}
+
 /* HELPERS */
 
 .flex {
@@ -519,6 +532,9 @@ header {
     }
     .header-content i {
         display: none;
+    }
+    .delete-icon {
+        right: 35px;
     }
 }
 
@@ -678,5 +694,9 @@ header {
     }
     .font {
         font-size: 1.2rem;
+    }
+    .delete-icon {
+        right: 17px;
+        font-size: 1rem;
     }
 }

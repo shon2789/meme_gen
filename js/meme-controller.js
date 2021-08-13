@@ -40,10 +40,23 @@ function renderCanvas() {
     const img = new Image();
     img.src = getImgSrc();
     img.onload = () => {
+        // fitImageOn(img)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         onAddLine();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 function onAddLine() {
     const lines = getLinesToShow();
@@ -235,7 +248,7 @@ function onRenderSavedMemes() {
     var memes = getSavedMemesToShow();
     var strHTMLs = '';
     memes.map(meme => {
-        return strHTMLs += `<img class="gallery-img" src="${meme.meme}"/>`
+        return strHTMLs += `<div class="saved-meme-container"><img class="gallery-img" src="${meme.meme}"/><i onclick="onDeleteSavedMeme('${meme.id}')" class="delete-icon fas fa-times"></i></div>`
     })
 
     document.querySelector('.images-container').innerHTML = strHTMLs;
@@ -244,6 +257,12 @@ function onRenderSavedMemes() {
         document.querySelector('.gallery-container-main').classList.toggle('hidden');
     }
 
+}
+
+function onDeleteSavedMeme(imgIdx) {
+    console.log('id', imgIdx)
+    deleteSavedMeme(imgIdx);
+    onRenderSavedMemes();
 }
 
 function onToggleMenu() {

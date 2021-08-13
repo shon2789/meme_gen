@@ -23,7 +23,7 @@ var gImages = [
 ];
 
 var gMeme = {
-    selectedImgId: 5,
+    selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
         {
@@ -210,6 +210,15 @@ function filterMemes(word) {
 
 function getImagesLength() {
     return gImages.length;
+}
+
+function deleteSavedMeme(id) {
+    console.log('id', id);
+    var idx = gSavedMemes.findIndex(meme => {
+        return meme.id === id;
+    })
+    gSavedMemes.splice(idx, 1);
+    _saveToStorage();
 }
 
 
