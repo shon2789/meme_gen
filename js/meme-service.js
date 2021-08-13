@@ -62,6 +62,11 @@ function addNewLine(txt, w, h, color) {
     gMeme.selectedLineIdx = linesCount;
 }
 
+function createImg(img, id) {
+    const newImg = { id, src: img, keywords: [] }
+    gImages.push(newImg);
+}
+
 
 function getImagesToShow() {
     return gImages;
@@ -201,6 +206,10 @@ function filterMemes(word) {
         }
     })
     return filteredMemes;
+}
+
+function getImagesLength() {
+    return gImages.length;
 }
 
 

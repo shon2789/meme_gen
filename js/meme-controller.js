@@ -27,7 +27,7 @@ function resizeCanvas() {
 
 function renderGallery() {
     var images = getImagesToShow();
-    var strHTMLs = '';
+    var strHTMLs = `<label for="upload-img"><div  class="upload gallery-img">Upload your own photo</div></label><input onchange="onImgInput(event)" id="upload-img" class="upload-img" type="file">`;
     images.map(img => {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
@@ -80,6 +80,34 @@ function onSetLineTxt(txt) {
 
 function onSelectImg(id) {
     setSelectImg(id);
+    renderCanvas();
+    document.querySelector('.gallery-container-main').classList.toggle('hidden');
+    document.querySelector('.edit-container').classList.toggle('hidden');
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader()
+
+    reader.onload = function (event) {
+        var img = new Image()
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
+
+
+}
+
+function renderImg(img) {
+    img.src.replace('image/png', 'image/jpeg')
+    var imagesLength = getImagesLength();
+    createImg(img.src, imagesLength + 1);
+    setSelectImg(imagesLength + 1);
     renderCanvas();
     document.querySelector('.gallery-container-main').classList.toggle('hidden');
     document.querySelector('.edit-container').classList.toggle('hidden');

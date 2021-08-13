@@ -354,6 +354,19 @@ header {
     font-size: 1.5rem;
 }
 
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(159, 156, 156);
+    font-size: 1rem;
+    text-align: center;
+}
+
+.upload-img {
+    display: none;
+}
+
 /* HELPERS */
 
 .flex {
