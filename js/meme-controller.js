@@ -2,7 +2,7 @@
 
 let gCanvas;
 let gCtx;
-let gCurrFont = 'impact';
+let gCurrFont = 'sans-serif';
 let gStartPos;
 let gIsMoving = false;
 let gIsMouseDown = false;
