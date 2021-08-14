@@ -236,7 +236,7 @@ function onMoveTouch(ev) {
     if (gIsMouseDown) {
         const { x, y, width, height } = ev.target.getBoundingClientRect();
         const offsetX = (ev.touches[0].clientX - x) / width * ev.target.offsetWidth;
-        const offsetY = (ev.touches[0].clientY - y) / height * ev.target.offsetHeight;
+        const offsetY = (ev.touches[0].clientY - y) / height * (ev.target.offsetHeight + 70);
         moveTxt(offsetX, offsetY);
         renderCanvas();
     }
