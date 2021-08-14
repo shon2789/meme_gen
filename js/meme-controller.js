@@ -20,14 +20,13 @@ function onInit() {
 }
 
 function resizeCanvas() {
-    const elCanvContainer = document.querySelector('.canvas-container');
     gCanvas.width = 400;
     gCanvas.height = 400;
 }
 
 function renderGallery() {
-    var images = getImagesToShow();
-    var strHTMLs = `<label for="upload-img"><div  class="upload gallery-img">Upload your own photo</div></label><input onchange="onImgInput(event)" id="upload-img" class="upload-img" type="file">`;
+    const images = getImagesToShow();
+    let strHTMLs = `<label for="upload-img"><div  class="upload gallery-img">Upload your own photo</div></label><input onchange="onImgInput(event)" id="upload-img" class="upload-img" type="file">`;
     images.map(img => {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
@@ -40,26 +39,18 @@ function renderCanvas() {
     const img = new Image();
     img.src = getImgSrc();
     img.onload = () => {
-        // fitImageOn(img)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         onAddLine();
-
     }
 }
-
 
 function onAddLine() {
     const lines = getLinesToShow();
     lines.forEach(line => {
-        // const size = getTxtSize();
-        var lineHeight = line.size * 1.286;
+        const lineHeight = line.size * 1.2;
         var textWidth = gCtx.measureText(line.txt).width;
         gCtx.textAlign = 'center';
         gCtx.textBaseline = 'top';
-        if (line.isChosen) {
-            gCtx.strokeStyle = 'black'
-            gCtx.strokeRect(line.pos.x - (textWidth / 2), line.pos.y - 5, textWidth, lineHeight);
-        }
         gCtx.font = `${line.size}px ${line.font}`
         gCtx.fillStyle = `${line.color}`
         gCtx.strokeStyle = '#000';
@@ -67,9 +58,11 @@ function onAddLine() {
             gCtx.lineWidth = 2;
             gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         }
+        if (line.isChosen) {
+            gCtx.strokeStyle = 'black'
+            gCtx.strokeRect(line.pos.x - (textWidth / 2), line.pos.y - 5, textWidth, lineHeight);
+        }
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
-        // saveLineLocation(line.pos.x - (textWidth / 2), line.pos.y - 5, textWidth, lineHeight);
-
     })
 }
 
@@ -96,10 +89,10 @@ function onImgInput(ev) {
 
 function loadImageFromInput(ev, onImageReady) {
     document.querySelector('.share-container').innerHTML = ''
-    var reader = new FileReader()
+    const reader = new FileReader()
 
     reader.onload = function (event) {
-        var img = new Image()
+        const img = new Image()
         img.onload = onImageReady.bind(null, img)
         img.src = event.target.result
     }
@@ -110,7 +103,7 @@ function loadImageFromInput(ev, onImageReady) {
 
 function renderImg(img) {
     img.src.replace('image/png', 'image/jpeg')
-    var imagesLength = getImagesLength();
+    const imagesLength = getImagesLength();
     createImg(img.src, imagesLength + 1);
     setSelectImg(imagesLength + 1);
     renderCanvas();
@@ -129,8 +122,7 @@ function onDecreaseFontSize() {
 }
 
 function onAddNewLine() {
-    // if (!txt) return;
-    var txt = document.querySelector('.txt-input').value = '';
+    const txt = document.querySelector('.txt-input').value = '';
     const color = document.querySelector('.color-input').value;
     addNewLine(txt, gCanvas.width, gCanvas.height, color);
     setChosen();
@@ -138,8 +130,6 @@ function onAddNewLine() {
 }
 
 function onChangeLine() {
-    // var dimensions = getTxtDimensions();
-
     changeLine();
     setChosen();
     document.querySelector('.txt-input').value = getTxtToShow();
@@ -186,23 +176,23 @@ function addTouchListeners() {
 function onDown(ev) {
     gIsMouseDown = true;
     let memes = getLinesToShow();
+    document.querySelector('.txt-input').value = '';
     memes.forEach(line => {
         line.isChosen = false;
     })
-    var idx = isLineChosen(ev.offsetX, ev.offsetY);
+    const idx = isLineChosen(ev.offsetX, ev.offsetY);
     if (idx !== -1) {
         setMemeIdx(idx);
+        document.querySelector('.txt-input').value = getTxtToShow();
     }
-
     renderCanvas();
-
 }
 
 function onMove(ev) {
-    var dimensions = getDimensions();
+    const dimensions = getTxtDimensions();
     if (gIsMouseDown) {
         var x = ev.offsetX;
-        var y = ev.offsetY;
+        var y = ev.offsetY - (dimensions.y / 2);
         moveTxt(x, y);
         renderCanvas()
     }
@@ -215,8 +205,7 @@ function onUp() {
 function onStartTouch(ev) {
     ev.preventDefault();
     gIsMouseDown = true;
-
-    let memes = getLinesToShow();
+    const memes = getLinesToShow();
     memes.forEach(line => {
         line.isChosen = false;
     })
@@ -224,11 +213,10 @@ function onStartTouch(ev) {
     const offsetX = (ev.touches[0].clientX - x) / width * ev.target.offsetWidth;
     const offsetY = (ev.touches[0].clientY - y) / height * (ev.target.offsetHeight + 70);
 
-    var idx = isLineChosen(offsetX, offsetY);
+    const idx = isLineChosen(offsetX, offsetY);
     if (idx !== -1) {
         setMemeIdx(idx);
     }
-
     renderCanvas();
 }
 
@@ -246,12 +234,9 @@ function onEndTouch() {
     gIsMouseDown = false;
 }
 
-function onSelectLine(ev) {
-    return gCtx.isPointInStroke(ev.offsetX, ev.offsetY)
-}
 
 function onSaveMeme() {
-    var lines = getLinesToShow();
+    const lines = getLinesToShow();
     lines.forEach(line => {
         line.isChosen = false;
     });
@@ -273,8 +258,8 @@ function onSaveMeme() {
 
 function onRenderSavedMemes(isDeleted) {
     if (!isDeleted) onToggleMenu();
-    var memes = getSavedMemesToShow();
-    var strHTMLs = '';
+    const memes = getSavedMemesToShow();
+    let strHTMLs = '';
 
     memes.map(meme => {
         return strHTMLs += `
@@ -291,7 +276,6 @@ function onRenderSavedMemes(isDeleted) {
 }
 
 function onDeleteSavedMeme(imgIdx) {
-    console.log('id', imgIdx)
     deleteSavedMeme(imgIdx);
     onRenderSavedMemes(true);
 }
@@ -306,9 +290,9 @@ function onToggleModal() {
 }
 
 function onFilterMemes(elItem) {
-    var elWord = elItem.innerText;
-    var filteredImgs = filterMemes(elWord);
-    var strHTMLs = `<label for="upload-img"><div  class="upload gallery-img">Upload your own photo</div></label><input onchange="onImgInput(event)" id="upload-img" class="upload-img" type="file">`;
+    const elWord = elItem.innerText;
+    const filteredImgs = filterMemes(elWord);
+    let strHTMLs = `<label for="upload-img"><div  class="upload gallery-img">Upload your own photo</div></label><input onchange="onImgInput(event)" id="upload-img" class="upload-img" type="file">`;
     filteredImgs.map(img => {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
@@ -317,9 +301,8 @@ function onFilterMemes(elItem) {
 }
 
 function onFilterMemesInput(word) {
-    console.log(word);
-    var filteredImgs = filterMemes(word)
-    var strHTMLs = '';
+    const filteredImgs = filterMemes(word)
+    let strHTMLs = '';
     filteredImgs.map(img => {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
@@ -345,7 +328,7 @@ function onAlignText(pos) {
 }
 
 function onDownloadSavedMeme(elLink, memeImg) {
-    var data = memeImg;
+    const data = memeImg;
     console.log(memeImg);
     elLink.href = data;
 }

@@ -1,7 +1,7 @@
 'use strict';
 const KEY = 'memesDB'
 
-var gImages = [
+let gImages = [
     { id: 1, src: 'images/1.jpg', keywords: ['All', 'Funny', 'Men'] },
     { id: 2, src: 'images/2.jpg', keywords: ['All', 'Animal'] },
     { id: 3, src: 'images/3.jpg', keywords: ['All', 'Animal'] },
@@ -22,7 +22,7 @@ var gImages = [
     { id: 18, src: 'images/18.jpg', keywords: ['All', 'Comic'] }
 ];
 
-var gMeme = {
+let gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
@@ -38,19 +38,17 @@ var gMeme = {
     ],
 }
 
-var gSavedMemes = [];
-loadSavedMemes()
-function addNewLine(txt, w, h, color) {
-    var linesCount = gMeme.lines.length;
-    if (linesCount === 1) {
-        var posX = 200;
-        var posY = h - 55;
+let gSavedMemes = [];
+loadSavedMemes();
 
+function addNewLine(txt, h) {
+    const linesCount = gMeme.lines.length;
+    if (linesCount === 1) {
+        var posY = h - 55;
     } else if (linesCount >= 2) {
         var posY = 200;
     }
-
-    var newLine = {
+    let newLine = {
         txt,
         size: 40,
         align: 'center',
@@ -74,6 +72,7 @@ function getImagesToShow() {
 function getLinesToShow() {
     return gMeme.lines;
 }
+
 
 function getimgIdxById() {
     return gImages.findIndex(img =>
@@ -193,7 +192,7 @@ function filterMemes(word) {
         word = 'All'
     }
 
-    var filteredMemes = [];
+    let filteredMemes = [];
     gImages.forEach(img => {
         if (img.keywords.includes(word)) {
             filteredMemes.push(img);
@@ -207,8 +206,7 @@ function getImagesLength() {
 }
 
 function deleteSavedMeme(id) {
-    console.log('id', id);
-    var idx = gSavedMemes.findIndex(meme => {
+    const idx = gSavedMemes.findIndex(meme => {
         return meme.id === id;
     })
     gSavedMemes.splice(idx, 1);
@@ -221,7 +219,7 @@ function setAlignPos(pos) {
 
 
 function isLineChosen(xPress, yPress) {
-    var idx = gMeme.lines.findIndex(line => {
+    const idx = gMeme.lines.findIndex(line => {
         let dimensions = getDimensions(line.txt, line.size);
         return ((xPress >= line.pos.x - (dimensions.x / 2) && xPress <= line.pos.x + (dimensions.x / 2)) && (yPress >= line.pos.y - (dimensions.y / 2) && yPress <= line.pos.y + dimensions.y))
     })

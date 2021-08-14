@@ -788,4 +788,7 @@ body.modal-open .screen-modal {
         font-size: 1rem;
         right: 17px;
     }
+    .color-input {
+        z-index: 10;
+    }
 }
