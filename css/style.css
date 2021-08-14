@@ -225,7 +225,7 @@ header {
 }
 
 .color-input {
-    visibility: hidden;
+    opacity: 0;
     position: fixed;
 }
 
@@ -787,8 +787,5 @@ body.modal-open .screen-modal {
         bottom: 8px;
         font-size: 1rem;
         right: 17px;
-    }
-    .color-input {
-        z-index: 10;
     }
 }
