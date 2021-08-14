@@ -31,7 +31,7 @@ let gMeme = {
             size: 40,
             align: 'right',
             color: 'black',
-            isStroke: true,
+            isStroke: false,
             pos: { x: 200, y: 20 },
             isChosen: true,
         },
@@ -53,7 +53,7 @@ function addNewLine(txt, h) {
         size: 40,
         align: 'center',
         color: 'black',
-        isStroke: true,
+        isStroke: false,
         pos: { x: 200, y: posY },
     }
     gMeme.lines.push(newLine)
