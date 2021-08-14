@@ -15,6 +15,39 @@
 
 <body onload="onInit()">
     <div class="screen-menu" onclick="onToggleMenu()"></div>
+    <div class="screen-modal" onclick="onToggleModal()"></div>
+
+    <div class="modal-container">
+        <div class="modal flex column align-center center">
+            <div class="modal-content">
+                Meme Saved
+            </div>
+        </div>
+    </div>
+
+    <div class="about-modal-container">
+        <div class="modal flex column align-center ">
+            <div class="modal-title"><img class="logo-img" src="images/logo.png" alt=""></div>
+            <div class="modal-content">
+                <p class="p1"> Welcome to the most fun Meme Generator online, it was created by <span class="bold">Shon
+                        Shinkarenko</span></p>
+                <p class="p2">Some of features of this Meme Generator are:</p>
+                <p>
+                <ul>
+                    <li>Creating Memes with provided photos or uploading your photo</li>
+                    <li>Customize your meme with colored text</li>
+                    <li>Customize your meme with different fonts</li>
+                    <li>Changing the size of the text</li>
+                    <li>Drag&drop your text anywhere</li>
+                    <li>Share, download and save your meme (All borders around the text will dissapear)</li>
+                </ul>
+                </p>
+                <i onclick="onToggleModal()" class="close-icon fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+
+
     <div class="page-container flex column center">
         <header class="flex align-center ">
             <div class="header-content flex space-between align-center main-layout">
@@ -24,12 +57,12 @@
                 <ul class="nav main-nav main-layout clean-list flex flex-end">
                     <li><a href="">Gallery</a></li>
                     <li><a onclick="onRenderSavedMemes()" href="#">Memes</a></li>
-                    <li><a href="">About</a></li>
+                    <li><a onclick="onToggleAbout()" href="#">About</a></li>
                 </ul>
                 <ul class="main-nav-mobile clean-list flex column ">
                     <li><a href="">Gallery</a></li>
                     <li><a onclick="onRenderSavedMemes()" href="#">Memes</a></li>
-                    <li><a href="">About</a></li>
+                    <li><a onclick="onToggleAbout(true)" href="#">About</a></li>
                 </ul>
                 <i onclick="onToggleMenu()" class="fa fa-bars btn-menu-toggle"></i>
             </div>

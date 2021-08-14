@@ -47,17 +47,6 @@ function renderCanvas() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 function onAddLine() {
     const lines = getLinesToShow();
     lines.forEach(line => {
@@ -242,15 +231,24 @@ function onSaveMeme() {
         const meme = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
         addToStorage(meme);
     }, 100)
+
+    document.querySelector('.modal-container').style.display = 'block';
+    document.body.classList.toggle('modal-open');
+
+    setTimeout(() => {
+        document.querySelector('.modal-container').style.display = 'none';
+        document.body.classList.toggle('modal-open');
+    }, 1000)
+
 }
 
-function onRenderSavedMemes() {
+function onRenderSavedMemes(isDeleted) {
+    if (!isDeleted) onToggleMenu();
     var memes = getSavedMemesToShow();
     var strHTMLs = '';
     memes.map(meme => {
         return strHTMLs += `<div class="saved-meme-container"><img class="gallery-img" src="${meme.meme}"/><i onclick="onDeleteSavedMeme('${meme.id}')" class="delete-icon fas fa-times"></i></div>`
     })
-
     document.querySelector('.images-container').innerHTML = strHTMLs;
     if (!document.querySelector('.edit-container').classList.contains('hidden')) {
         document.querySelector('.edit-container').classList.toggle('hidden');
@@ -262,17 +260,22 @@ function onRenderSavedMemes() {
 function onDeleteSavedMeme(imgIdx) {
     console.log('id', imgIdx)
     deleteSavedMeme(imgIdx);
-    onRenderSavedMemes();
+    onRenderSavedMemes(true);
 }
 
 function onToggleMenu() {
     document.body.classList.toggle('menu-open');
 }
 
+function onToggleModal() {
+    document.body.classList.toggle('modal-open');
+    document.querySelector('.about-modal-container').style.display = 'none';
+}
+
 function onFilterMemes(elItem) {
     var elWord = elItem.innerText;
     var filteredImgs = filterMemes(elWord);
-    var strHTMLs = '';
+    var strHTMLs = `<label for="upload-img"><div  class="upload gallery-img">Upload your own photo</div></label><input onchange="onImgInput(event)" id="upload-img" class="upload-img" type="file">`;
     filteredImgs.map(img => {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
@@ -288,4 +291,10 @@ function onFilterMemesInput(word) {
         return strHTMLs += `<img class="gallery-img" src="${img.src}" onclick="onSelectImg(${img.id})"/>`
     })
     document.querySelector('.images-container').innerHTML = strHTMLs;
+}
+
+function onToggleAbout(isMobile) {
+    if (isMobile) onToggleMenu();
+    document.querySelector('.about-modal-container').style.display = 'block';
+    document.body.classList.toggle('modal-open');
 }
