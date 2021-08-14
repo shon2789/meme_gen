@@ -43,6 +43,7 @@ function renderCanvas() {
         // fitImageOn(img)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         onAddLine();
+
     }
 }
 
@@ -67,6 +68,8 @@ function onAddLine() {
             gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         }
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
+        // saveLineLocation(line.pos.x - (textWidth / 2), line.pos.y - 5, textWidth, lineHeight);
+
     })
 }
 
@@ -182,10 +185,21 @@ function addTouchListeners() {
 
 function onDown(ev) {
     gIsMouseDown = true;
+    let memes = getLinesToShow();
+    memes.forEach(line => {
+        line.isChosen = false;
+    })
+    var idx = isLineChosen(ev.offsetX, ev.offsetY);
+    if (idx !== -1) {
+        setMemeIdx(idx);
+    }
+
+    renderCanvas();
+
 }
 
 function onMove(ev) {
-    var dimensions = getTxtDimensions();
+    var dimensions = getDimensions();
     if (gIsMouseDown) {
         var x = ev.offsetX;
         var y = ev.offsetY;
@@ -201,6 +215,21 @@ function onUp() {
 function onStartTouch(ev) {
     ev.preventDefault();
     gIsMouseDown = true;
+
+    let memes = getLinesToShow();
+    memes.forEach(line => {
+        line.isChosen = false;
+    })
+    const { x, y, width, height } = ev.target.getBoundingClientRect();
+    const offsetX = (ev.touches[0].clientX - x) / width * ev.target.offsetWidth;
+    const offsetY = (ev.touches[0].clientY - y) / height * (ev.target.offsetHeight + 70);
+
+    var idx = isLineChosen(offsetX, offsetY);
+    if (idx !== -1) {
+        setMemeIdx(idx);
+    }
+
+    renderCanvas();
 }
 
 function onMoveTouch(ev) {
@@ -297,4 +326,16 @@ function onToggleAbout(isMobile) {
     if (isMobile) onToggleMenu();
     document.querySelector('.about-modal-container').style.display = 'block';
     document.body.classList.toggle('modal-open');
+}
+
+function onAlignText(pos) {
+
+    if (pos === 'left') {
+        setAlignPos(100)
+    } else if (pos === 'right') {
+        setAlignPos(300)
+    } else if (pos === 'center') {
+        setAlignPos(200)
+    }
+    renderCanvas();
 }

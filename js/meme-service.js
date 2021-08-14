@@ -29,7 +29,7 @@ var gMeme = {
         {
             txt: '',
             size: 40,
-            align: 'center',
+            align: 'right',
             color: 'black',
             isStroke: true,
             pos: { x: 200, y: 20 },
@@ -135,13 +135,7 @@ function deleteLine() {
     }
 }
 
-function getTextWidth() {
-    return gCtx.measureText(gMeme.lines[selectedLineIdx].txt).width;
-}
 
-function getTextHeight() {
-    return gMeme.lines[gMeme.selectedLineIdx].txt * 1.5;
-}
 
 function setStroke() {
     (gMeme.lines[gMeme.selectedLineIdx].isStroke) ? gMeme.lines[gMeme.selectedLineIdx].isStroke = false : gMeme.lines[gMeme.selectedLineIdx].isStroke = true;
@@ -153,9 +147,9 @@ function changeFont(font) {
 }
 
 function getTxtDimensions() {
-    var txt = gMeme.lines[gMeme.selectedLineIdx].txt;
-    var lineHeight = txt * 1.286;
-    var textWidth = gCtx.measureText(txt).width;
+    const txt = gMeme.lines[gMeme.selectedLineIdx].txt;
+    const lineHeight = gMeme.lines[gMeme.selectedLineIdx].size;
+    const textWidth = gCtx.measureText(txt).width;
     return { x: textWidth, y: lineHeight }
 }
 
@@ -221,6 +215,30 @@ function deleteSavedMeme(id) {
     _saveToStorage();
 }
 
+function setAlignPos(pos) {
+    gMeme.lines[gMeme.selectedLineIdx].pos.x = pos;
+}
+
+
+function isLineChosen(xPress, yPress) {
+    var idx = gMeme.lines.findIndex(line => {
+        let dimensions = getDimensions(line.txt, line.size);
+        return ((xPress >= line.pos.x - (dimensions.x / 2) && xPress <= line.pos.x + (dimensions.x / 2)) && (yPress >= line.pos.y - (dimensions.y / 2) && yPress <= line.pos.y + dimensions.y))
+    })
+    return idx;
+}
+
+function getDimensions(txt, fontSize) {
+    let dimensions = gCtx.measureText(txt);
+    let width = dimensions.width;
+    let height = fontSize;
+    return { x: width, y: height };
+}
+
+function setMemeIdx(idx) {
+    gMeme.selectedLineIdx = idx;
+    gMeme.lines[idx].isChosen = true;
+}
 
 function _saveToStorage() {
     saveToStorage(KEY, gSavedMemes);
