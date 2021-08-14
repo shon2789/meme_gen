@@ -169,7 +169,6 @@ function onDownloadMeme(elLink) {
 }
 
 
-
 function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove)
     gCanvas.addEventListener('mousedown', onDown)
@@ -242,7 +241,6 @@ function onMoveTouch(ev) {
 function onEndTouch() {
     gIsMouseDown = false;
 }
-
 
 function onSaveMeme() {
     const lines = getLinesToShow();
