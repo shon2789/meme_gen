@@ -2,7 +2,7 @@
 
 let gCanvas;
 let gCtx;
-let gCurrFont = 'Impact';
+let gCurrFont = 'impact';
 let gStartPos;
 let gIsMoving = false;
 let gIsMouseDown = false;
@@ -12,7 +12,7 @@ function onInit() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d');
     resizeCanvas();
-    addMouseListeners()
+    addMouseListeners();
     addTouchListeners();
     renderGallery();
     renderCanvas();
@@ -51,14 +51,14 @@ function onAddLine() {
         var textWidth = gCtx.measureText(line.txt).width;
         gCtx.textAlign = 'center';
         gCtx.textBaseline = 'top';
-        gCtx.font = `${line.size}px ${line.font}`
+        gCtx.font = `${line.size}px ${gCurrFont}`
         gCtx.fillStyle = `${line.color}`
         gCtx.strokeStyle = '#000';
         if (line.isStroke) {
             gCtx.lineWidth = 2;
             gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         }
-        if (line.isChosen) {
+        if (line.isChosen && line.txt) {
             gCtx.strokeStyle = 'black'
             gCtx.strokeRect(line.pos.x - (textWidth / 2), line.pos.y - 5, textWidth, lineHeight);
         }
@@ -156,10 +156,19 @@ function onChangeFont(font) {
 }
 
 function onDownloadMeme(elLink) {
-    const data = gCanvas.toDataURL();
+
+    var lines = getLinesToShow();
+    lines.forEach(line => {
+        line.isChosen = false;
+    });
+    renderCanvas();
+
+    const data = gCanvas.toDataURL().replace('image/png', 'image/jpeg');
     elLink.href = data;
 
 }
+
+
 
 function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove)
