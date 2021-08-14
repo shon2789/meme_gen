@@ -275,8 +275,12 @@ function onRenderSavedMemes(isDeleted) {
     if (!isDeleted) onToggleMenu();
     var memes = getSavedMemesToShow();
     var strHTMLs = '';
+
     memes.map(meme => {
-        return strHTMLs += `<div class="saved-meme-container"><img class="gallery-img" src="${meme.meme}"/><i onclick="onDeleteSavedMeme('${meme.id}')" class="delete-icon fas fa-times"></i></div>`
+        return strHTMLs += `
+        <div class="saved-meme-container"><img class="gallery-img" src="${meme.meme}"/>
+        <a onclick="onDownloadSavedMeme(this, '${meme.meme}')"  href="" download="myPhoto"><i class="download-icon fas fa-download"></i></a>
+        <i onclick="onDeleteSavedMeme('${meme.id}')" class="delete-icon fas fa-times"></i></div>`
     })
     document.querySelector('.images-container').innerHTML = strHTMLs;
     if (!document.querySelector('.edit-container').classList.contains('hidden')) {
@@ -338,4 +342,10 @@ function onAlignText(pos) {
         setAlignPos(200)
     }
     renderCanvas();
+}
+
+function onDownloadSavedMeme(elLink, memeImg) {
+    var data = memeImg;
+    console.log(memeImg);
+    elLink.href = data;
 }

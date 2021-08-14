@@ -358,7 +358,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(159, 156, 156);
+    background-color: #8e9093;
     font-size: 1rem;
     text-align: center;
 }
@@ -471,6 +471,14 @@ body.modal-open .screen-modal {
     top: 5px;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+.download-icon {
+    position: absolute;
+    color: rgb(72, 117, 172);
+    font-size: 1rem;
+    bottom: 18px;
+    right: 5px;
 }
 
 /* HELPERS */
@@ -602,6 +610,9 @@ body.modal-open .screen-modal {
     }
     .delete-icon {
         right: 35px;
+    }
+    .download-icon {
+        right: 32px;
     }
 }
 
@@ -771,5 +782,10 @@ body.modal-open .screen-modal {
     }
     .close-icon {
         font-size: 1.2rem;
+    }
+    .download-icon {
+        bottom: 8px;
+        font-size: 1rem;
+        right: 17px;
     }
 }
