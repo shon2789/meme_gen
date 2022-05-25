@@ -42,7 +42,7 @@ let gSavedMemes = [];
 loadSavedMemes();
 
 function addNewLine(txt, h) {
-    const linesCount = gMeme.lines.length;
+    const linesCount = gMeme?.lines?.length;
     if (linesCount === 1) {
         var posY = h - 55;
     } else if (linesCount >= 2) {
